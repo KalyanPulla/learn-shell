@@ -1,6 +1,6 @@
-cp -r rabbitmq_erlang.repo /etc/yum.repos.d/rabbitmq_erlang.repo
+cp rabbitmq_erlang.repo /etc/yum.repos.d/rabbitmq_erlang.repo
 dnf install -y erlang
-cp -r rabbitmq_rabbitmq-server.repo /etc/yum.repos.d/rabbitmq_rabbitmq-server.repo
+cp rabbitmq_rabbitmq-server.repo /etc/yum.repos.d/rabbitmq_rabbitmq-server.repo
 dnf install -y rabbitmq-server
 
 systemctl enable rabbitmq-server
