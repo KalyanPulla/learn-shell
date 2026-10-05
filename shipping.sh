@@ -8,8 +8,8 @@ curl -L -o /tmp/shipping.zip https://raw.githubusercontent.com/raghudevopsb89/ro
 mkdir -p /app
 cd /app
 unzip /tmp/shipping.zip
-mysql -h <MYSQL-SERVER-IP> -u root -pRoboShop@1 < db/schema.sql
-mysql -h <MYSQL-SERVER-IP> -u root -pRoboShop@1 < db/app-user.sql
+mysql -h sql-dev.kaldevops14.online -u root -pRoboShop@1 < db/schema.sql
+mysql -h sql-dev.kaldevops14.online -u root -pRoboShop@1 < db/app-user.sql
 
 useradd -r -s /bin/false appuser
 cd /app
