@@ -8,9 +8,9 @@ curl -L -o /tmp/catalogue.zip https://raw.githubusercontent.com/raghudevopsb89/r
 mkdir -p /app
 cd /app
 unzip /tmp/catalogue.zip
-mysql -h localhost -u root -pRoboShop@1 < db/schema.sql
-mysql -h localhost -u root -pRoboShop@1 < db/app-user.sql
-mysql -h localhost -u root -pRoboShop@1 catalogue < db/master-data.sql
+mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/schema.sql
+mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/app-user.sql
+mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 catalogue < db/master-data.sql
 
 useradd -r -s /bin/false appuser
 cd /app
