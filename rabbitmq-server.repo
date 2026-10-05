@@ -3,3 +3,4 @@ name=rabbitmq_rabbitmq-server
 baseurl=https://packagecloud.io/rabbitmq/rabbitmq-server/el/9/$basearch
 gpgcheck=0
 enabled=1
+EOF
