@@ -1,6 +1,6 @@
 dnf install -y nginx
 
-cp -r nginx.conf /etc/nginx.nginx.conf
+cp nginx.conf /etc/nginx.nginx.conf
 
 curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -
 dnf install -y nodejs
