@@ -3,6 +3,8 @@ dnf install -y golang git mysql8.4
 cp -r catalogue.service /etc/systemd/system/catalogue.service
 
 rm -rf /app
+rm -rf /tmp/catalogue.zip
+userdel appuser
 
 curl -L -o /tmp/catalogue.zip https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/catalogue.zip
 mkdir -p /app
