@@ -6,6 +6,7 @@ curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -
 dnf install -y nodejs
 
 rm -rf frontend
+rm -rf /tmp/frontend.zip
 
 curl -L -o /tmp/frontend.zip https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/frontend.zip
 mkdir -p frontend && cd frontend
