@@ -1,5 +1,7 @@
 dnf install -y python3 python3-pip
 
+rm -rf /app
+
 cp -r payment.service /etc/systemd/system/payment.service
 useradd -r -s /bin/false appuser
 mkdir -p /app

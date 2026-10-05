@@ -3,6 +3,8 @@ dnf install -y nodejs
 
 cp -r user.service /etc/systemd/system/user.service
 
+rm -rf /app
+
 useradd -r -s /bin/false appuser
 mkdir -p /app
 

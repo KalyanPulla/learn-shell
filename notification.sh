@@ -2,6 +2,8 @@ dnf install -y python3 python3-pip
 
 cp -r notification.service /etc/systemd/system/notification.service
 
+rm -rf /app
+
 useradd -d /app -r -s /bin/false appuser
 mkdir -p /app
 curl -L -o /tmp/notification.zip https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/notification.zip

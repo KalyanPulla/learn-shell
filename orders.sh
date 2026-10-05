@@ -2,6 +2,8 @@ dnf install -y java-21-openjdk java-21-openjdk-devel maven
 
 cp -r orders.service /etc/systemd/system/orders.service
 
+rm -rf /app
+
 useradd -r -s /bin/false appuser
 mkdir -p /app
 curl -L -o /tmp/orders.zip https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/orders.zip

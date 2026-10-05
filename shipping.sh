@@ -2,6 +2,8 @@ dnf install -y java-21-openjdk java-21-openjdk-devel maven mysql8.4
 
 cp -r shipping.service /etc/systemd/system/shipping.service
 
+rm -rf /app
+
 curl -L -o /tmp/shipping.zip https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/shipping.zip
 mkdir -p /app
 cd /app

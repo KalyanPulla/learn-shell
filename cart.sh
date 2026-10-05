@@ -3,6 +3,8 @@ dnf install -y nodejs
 
 cp -r cart.service /etc/systemd/system/cart.service
 
+rm -rf /app
+
 useradd -r -s /bin/false appuser
 mkdir -p /app
 
