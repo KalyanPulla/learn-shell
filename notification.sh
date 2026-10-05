@@ -1,5 +1,7 @@
 dnf install -y python3 python3-pip
 
+pip3 install gunicorn
+
 cp -r notification.service /etc/systemd/system/notification.service
 
 rm -rf /app
