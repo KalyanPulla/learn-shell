@@ -1,5 +1,5 @@
-cp -r erlang.repo /etc/yum.repos.d/rabbitmq_erlang.repo
-cp -r rabbitmq-server.repo /etc/yum.repo.d/rabbitmq_rabbitmq-server.repo
+cp -r erlang.repo /etc/yum.repos.d/erlang.repo
+cp -r rabbitmq-server.repo /etc/yum.repo.d/rabbitmq-server.repo
 
 dnf install -y erlang
 dnf install -y rabbitmq-server
