@@ -7,8 +7,8 @@ rm -rf /app
 curl -L -o /tmp/ratings.zip https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/ratings.zip
 mkdir -p /app && cd /app
 unzip /tmp/ratings.zip
-mysql -h <MYSQL-SERVER-IP> -u root -pRoboShop@1 < db/schema.sql
-mysql -h <MYSQL-SERVER-IP> -u root -pRoboShop@1 < db/app-user.sql
+mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/schema.sql
+mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/app-user.sql
 
 useradd -r -s /bin/false appuser
 mkdir -p /app
