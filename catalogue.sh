@@ -13,8 +13,9 @@ echo $?
 rm -rf /app &>>${log_file}
 rm -rf /tmp/${component_name}.zip &>>${log_file}
 
-echo -e "${hs} Delete exisitin appuser ${he}" | tee -a ${log_file}
-id appuser
+echo -e "${hs} Stopping service and Deleting exisitin appuser ${he}" | tee -a ${log_file}
+systemctl stop ${component_name} &>>${log_file}
+systemctl disable ${component_name} &>>${log_file}
 userdel -r appuser &>>${log_file}
 echo $?
 
