@@ -12,7 +12,11 @@ cp -r ${component_name}.service /etc/systemd/system/${component_name}.service &>
 echo $?
 rm -rf /app &>>${log_file}
 rm -rf /tmp/${component_name}.zip &>>${log_file}
+
+echo -e "${hs} Delete exisitin appuser ${he}" | tee -a ${log_file}
+id appuser
 userdel -r appuser &>>${log_file}
+echo $?
 
 echo -e "${hs} Download App code ${he}" | tee -a ${log_file}
 
