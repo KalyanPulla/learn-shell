@@ -16,7 +16,6 @@ echo $?
 echo -e "${hs} Install Nodejs ${he}" | tee -a ${log_file}
 
 curl -fsSL https://rpm.nodesource.com/setup_20.x | bash - &>>${log_file}
-echo $?
 dnf install -y nodejs &>>${log_file}
 echo $?
 echo -e "${hs} Create App Directory ${he}" | tee -a ${log_file}
