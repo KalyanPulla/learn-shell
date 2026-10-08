@@ -1,48 +1,52 @@
-echo -e '\e[31m Hello World\e[0m'
+log_file = '/tmp/roboshop.log'
+hs ='\e[31m >>>>>>>>>>'
+he = '<<<<<<<<<<\e[0m'
+
 component_name=frontend 
+echo Log file output: ${log_file}
 
-echo -e '\e[31m >>>>>>>>>> Install Nginx <<<<<<<<<<\e[0m' | tee -a /tmp/roboshop.log
+echo -e '${hs} Install Nginx ${he}' | tee -a ${log_file}
 
-dnf install -y nginx &>>/tmp/roboshop.log
+dnf install -y nginx &>>${log_file}
 echo $?
-echo -e '\e[31m >>>>>>>>>> Copy Nginx Config <<<<<<<<<<\e[0m' | tee -a /tmp/roboshop.log
+echo -e '${hs} Copy Nginx Config ${he}' | tee -a ${log_file}
 
-cp nginx.conf /etc/nginx/nginx.conf &>>/tmp/roboshop.log
+cp nginx.conf /etc/nginx/nginx.conf &>>${log_file}
 echo $?
-echo -e '\e[31m >>>>>>>>>> Install Nodejs <<<<<<<<<<\e[0m' | tee -a /tmp/roboshop.log
+echo -e '${hs} Install Nodejs ${he}' | tee -a ${log_file}
 
-curl -fsSL https://rpm.nodesource.com/setup_20.x | bash - &>>/tmp/roboshop.log
+curl -fsSL https://rpm.nodesource.com/setup_20.x | bash - &>>${log_file}
 echo $?
-dnf install -y nodejs &>>/tmp/roboshop.log
+dnf install -y nodejs &>>${log_file}
 echo $?
-echo -e '\e[31m >>>>>>>>>> Create App Directory <<<<<<<<<<\e[0m' | tee -a /tmp/roboshop.log
+echo -e '${hs} Create App Directory ${he}' | tee -a ${log_file}
 
-rm -rf component_name &>>/tmp/roboshop.log
-mkdir -p component_name && cd component_name &>>/tmp/roboshop.log
+rm -rf component_name &>>${log_file}
+mkdir -p component_name && cd component_name &>>${log_file}
 echo $?
-rm -rf /tmp/component_name.zip &>>/tmp/roboshop.log
+rm -rf /tmp/component_name.zip &>>${log_file}
 
-echo -e '\e[31m >>>>>>>>>> Download Frontend Code <<<<<<<<<<\e[0m' | tee -a /tmp/roboshop.log
+echo -e '${hs} Download Frontend Code ${he}' | tee -a ${log_file}
 
-curl -L -o /tmp/component_name.zip https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/component_name.zip &>>/tmp/roboshop.log
+curl -L -o /tmp/component_name.zip https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/component_name.zip &>>${log_file}
 echo $?
-echo -e '\e[31m >>>>>>>>>> Extract App Code <<<<<<<<<<\e[0m' | tee -a /tmp/roboshop.log
+echo -e '${hs} Extract App Code ${he}' | tee -a ${log_file}
 
-unzip /tmp/component_name.zip &>>/tmp/roboshop.log
+unzip /tmp/component_name.zip &>>${log_file}
 echo $?
-echo -e '\e[31m >>>>>>>>>> Install and Run Build Files <<<<<<<<<<\e[0m' | tee -a /tmp/roboshop.log
+echo -e '${hs} Install and Run Build Files ${he}' | tee -a ${log_file}
 
-npm cache clean --force &>>/tmp/roboshop.log
-npm install &>>/tmp/roboshop.log
-npm run build &>>/tmp/roboshop.log
+npm cache clean --force &>>${log_file}
+npm install &>>${log_file}
+npm run build &>>${log_file}
 echo $?
-echo -e '\e[31m >>>>>>>>>> Copy Build code to Nginx <<<<<<<<<<\e[0m' | tee -a /tmp/roboshop.log
+echo -e '${hs} Copy Build code to Nginx ${he}' | tee -a ${log_file}
 
-rm -rf /usr/share/nginx/html/* &>>/tmp/roboshop.log
-cp -r out/* /usr/share/nginx/html/ &>>/tmp/roboshop.log
+rm -rf /usr/share/nginx/html/* &>>${log_file}
+cp -r out/* /usr/share/nginx/html/ &>>${log_file}
 echo $?
-echo -e '\e[31m >>>>>>>>>> Restart Nginx <<<<<<<<<<\e[0m' | tee -a /tmp/roboshop.log
+echo -e '${hs} Restart Nginx ${he}' | tee -a ${log_file}
 
-systemctl enable nginx &>>/tmp/roboshop.log
-systemctl restart nginx &>>/tmp/roboshop.log
+systemctl enable nginx &>>${log_file}
+systemctl restart nginx &>>${log_file}
 echo $?
