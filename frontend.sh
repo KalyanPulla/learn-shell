@@ -1,6 +1,6 @@
-log_file = '/tmp/roboshop.log'
+log_file =/tmp/roboshop.log
 hs ='\e[31m >>>>>>>>>>'
-he = '<<<<<<<<<<\e[0m'
+he ='<<<<<<<<<<\e[0m'
 
 component_name=frontend 
 echo Log file output: ${log_file}
