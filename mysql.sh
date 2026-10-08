@@ -1,17 +1,17 @@
 source common.sh
 
-echo -e "${hs} Install Nginx ${he}" | tee -a ${log_file}
+echo -e "${hs} Install MYSQL Server ${he}" | tee -a ${log_file}
 
 dnf install -y mysql8.4-server &>>${log_file}
 echo $?
 
-echo -e "${hs} Install Nginx ${he}" | tee -a ${log_file}
+echo -e "${hs} Start MYSQL Server ${he}" | tee -a ${log_file}
 
 systemctl enable mysqld &>>${log_file}
 systemctl start mysqld &>>${log_file}
 echo $?
 
-echo -e "${hs} Install Nginx ${he}" | tee -a ${log_file}
+echo -e "${hs} Create MYSQL root user and Grant privileges ${he}" | tee -a ${log_file}
 
 mysql -u root -e "
   CREATE USER 'root'@'%' IDENTIFIED BY 'RoboShop@1';
