@@ -17,7 +17,7 @@ userdel -r appuser &>>${log_file}
 echo -e "${hs} Download App code ${he}" | tee -a ${log_file}
 
 curl -L -o /tmp/${component_name}.zip https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/${component_name}.zip &>>${log_file}
-
+echo $?
 echo -e "${hs} Create App Directory ${he}" | tee -a ${log_file}
 mkdir -p /app && cd /app &>>${log_file}
 echo $?
