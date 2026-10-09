@@ -74,13 +74,8 @@ status_check() {
 
 java_app() {
     app_prereq
-    echo -e "${hs} Install Java Maven mysql 8.4 ${he}" | tee -a ${log_file}
-    dnf install -y java-21-openjdk java-21-openjdk-devel maven mysql8.4 &>>${log_file}
-    status_check
-
-    echo -e "${hs} Schema load & AppUser data ${he}" | tee -a ${log_file}
-    mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/schema.sql &>>${log_file}
-    mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/app-user.sql &>>${log_file}
+    echo -e "${hs} Install Java Maven ${he}" | tee -a ${log_file}
+    dnf install -y java-21-openjdk java-21-openjdk-devel maven &>>${log_file}
     status_check
 
     echo -e "${hs} Complile Package into build ${he}" | tee -a ${log_file}
@@ -104,6 +99,22 @@ python_app() {
     echo -e "${hs} Install requirements ${he}" | tee -a ${log_file}
     pip3 install -r requirements.txt &>>${log_file}
     status_check
-    
+
     systemd_service
+}
+
+schema_load() {
+    if ["$schema_load" = "true"]; then
+        if ["$schema_type" = "true"]; then            
+            echo -e "${hs} Install Golang and mysql client ${he}" | tee -a ${log_file}
+            dnf install mysql8.4 &>>${log_file}
+            status_check
+
+            echo -e "${hs} Load Schema, App user, Master Data ${he}" | tee -a ${log_file}
+            for file in $schema_files; do
+                mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/${file} &>>${log_file}
+            done
+            status_check
+        fi
+    fi
 }
