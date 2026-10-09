@@ -4,46 +4,45 @@ component_name=frontend
 echo Log file output: ${log_file}
 
 echo -e "${hs} Install Nginx ${he}" | tee -a ${log_file}
-
 dnf install -y nginx &>>${log_file}
 status_check
-echo -e "${hs} Copy Nginx Config ${he}" | tee -a ${log_file}
 
+echo -e "${hs} Copy Nginx Config ${he}" | tee -a ${log_file}
 cp nginx.conf /etc/nginx/nginx.conf &>>${log_file}
 status_check
-echo -e "${hs} Install Nodejs ${he}" | tee -a ${log_file}
 
+echo -e "${hs} Install Nodejs ${he}" | tee -a ${log_file}
 curl -fsSL https://rpm.nodesource.com/setup_20.x | bash - &>>${log_file}
 dnf install -y nodejs &>>${log_file}
 status_check
-echo -e "${hs} Create App Directory ${he}" | tee -a ${log_file}
 
+echo -e "${hs} Create App Directory ${he}" | tee -a ${log_file}
 rm -rf ${component_name} &>>${log_file}
 mkdir -p ${component_name} && cd ${component_name} &>>${log_file}
 status_check
+
 rm -rf /tmp/${component_name}.zip &>>${log_file}
 
 echo -e "${hs} Download Frontend Code ${he}" | tee -a ${log_file}
-
 curl -L -o /tmp/${component_name}.zip https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/${component_name}.zip &>>${log_file}
 status_check
-echo -e "${hs} Extract App Code ${he}" | tee -a ${log_file}
 
+echo -e "${hs} Extract App Code ${he}" | tee -a ${log_file}
 unzip /tmp/${component_name}.zip &>>${log_file}
 status_check
-echo -e "${hs} Install and Run Build Files ${he}" | tee -a ${log_file}
 
+echo -e "${hs} Install and Run Build Files ${he}" | tee -a ${log_file}
 npm cache clean --force &>>${log_file}
 npm install &>>${log_file}
 npm run build &>>${log_file}
 status_check
-echo -e "${hs} Copy Build code to Nginx ${he}" | tee -a ${log_file}
 
+echo -e "${hs} Copy Build code to Nginx ${he}" | tee -a ${log_file}
 rm -rf /usr/share/nginx/html/* &>>${log_file}
 cp -r out/* /usr/share/nginx/html/ &>>${log_file}
 status_check
-echo -e "${hs} Restart Nginx ${he}" | tee -a ${log_file}
 
+echo -e "${hs} Restart Nginx ${he}" | tee -a ${log_file}
 systemctl enable nginx &>>${log_file}
 systemctl restart nginx &>>${log_file}
 status_check

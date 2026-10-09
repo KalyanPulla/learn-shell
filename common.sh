@@ -11,12 +11,6 @@ app_prereq() {
     rm -rf /app &>>${log_file}
     rm -rf /tmp/${component_name}.zip &>>${log_file}
 
-    echo -e "${hs} Stopping service and Deleting exisitin appuser ${he}" | tee -a ${log_file}
-    systemctl stop ${component_name} &>>${log_file}
-    systemctl disable ${component_name} &>>${log_file}
-    userdel -r appuser &>>${log_file}
-    status_check
-
     echo -e "${hs} Create Application User ${he}" | tee -a ${log_file}
     useradd -r -s /bin/false appuser &>>${log_file}
     status_check
@@ -76,4 +70,40 @@ status_check() {
         echo -e "\e[32m SUCCESS \e[0m"
     else
         echo -e "\e[31m FAILURE \e[0m"
+}
+
+java_app() {
+    app_prereq
+    echo -e "${hs} Install Java Maven mysql 8.4 ${he}" | tee -a ${log_file}
+    dnf install -y java-21-openjdk java-21-openjdk-devel maven mysql8.4 &>>${log_file}
+    status_check
+
+    echo -e "${hs} Schema load & AppUser data ${he}" | tee -a ${log_file}
+    mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/schema.sql &>>${log_file}
+    mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/app-user.sql &>>${log_file}
+    status_check
+
+    echo -e "${hs} Complile Package into build ${he}" | tee -a ${log_file}
+    mvn clean package -DskipTests &>>${log_file}
+    status_check
+
+    echo -e "${hs} Copy JAR code to Application Folder ${he}" | tee -a ${log_file}
+    cp target/${component_name}.jar /app/${component_name}.jar &>>${log_file}
+    status_check
+
+    systemd_service
+}
+
+python_app() {
+    app_prereq
+
+    echo -e "${hs} Install Python and pip ${he}" | tee -a ${log_file}
+    dnf install -y python3 python3-pip &>>${log_file}
+    status_check
+
+    echo -e "${hs} Install requirements ${he}" | tee -a ${log_file}
+    pip3 install -r requirements.txt &>>${log_file}
+    status_check
+    
+    systemd_service
 }

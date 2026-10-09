@@ -4,6 +4,7 @@ echo Log file output: ${log_file}
 
 echo -e "${hs} Install Golang and mysql client ${he}" | tee -a ${log_file}
 dnf install mysql8.4 &>>${log_file}
+status_check
 
 echo -e "${hs} Load Schema, App user, Master Data ${he}" | tee -a ${log_file}
 mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/schema.sql &>>${log_file}

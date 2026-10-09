@@ -1,4 +1,5 @@
 source common.sh
+echo Log file output: ${log_file}
 
 echo -e "${hs} Copy Mongo Repo to Repo config ${he}" | tee -a ${log_file}
 cp -r mongodb.repo /etc/yum.repos.d/mongodb-org-7.0.repo &>>${log_file}
