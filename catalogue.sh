@@ -9,6 +9,6 @@ echo -e "${hs} Load Schema, App user, Master Data ${he}" | tee -a ${log_file}
 mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/schema.sql &>>${log_file}
 mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/app-user.sql &>>${log_file}
 mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 ${component_name} < db/master-data.sql &>>${log_file}
-echo $?
+status_check
 
 golang_app

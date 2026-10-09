@@ -5,7 +5,7 @@ he="<<<<<<<<<< \e[0m"
 app_prereq() {
     echo -e "${hs} Copy Service to systemd ${he}" | tee -a ${log_file}
     cp -r ${component_name}.service /etc/systemd/system/${component_name}.service &>>${log_file}
-    echo $?
+    status_check
 
     echo -e "${hs} Remove Existing files when rerun ${he}" | tee -a ${log_file}
     rm -rf /app &>>${log_file}
@@ -15,47 +15,47 @@ app_prereq() {
     systemctl stop ${component_name} &>>${log_file}
     systemctl disable ${component_name} &>>${log_file}
     userdel -r appuser &>>${log_file}
-    echo $?
+    status_check
 
     echo -e "${hs} Create Application User ${he}" | tee -a ${log_file}
     useradd -r -s /bin/false appuser &>>${log_file}
-    echo $?
+    status_check
 
     echo -e "${hs} Download App code ${he}" | tee -a ${log_file}
     curl -L -o /tmp/${component_name}.zip https://raw.githubusercontent.com/raghudevopsb89/roboshop-microservices/main/artifacts/${component_name}.zip &>>${log_file}
-    echo $?
+    status_check
 
     echo -e "${hs} Create App Directory ${he}" | tee -a ${log_file}
     mkdir -p /app && cd /app &>>${log_file}
-    echo $?
+    status_check
 
     echo -e "${hs} Extract App code ${he}" | tee -a ${log_file}
     unzip /tmp/${component_name}.zip &>>${log_file}
-    echo $?
+    status_check
 }
 
 systemd_service() {
     echo -e "${hs} Grant Permissions and Privileges ${he}" | tee -a ${log_file}
     chown -R app${component_name}:app${component_name} /app &>>${log_file}
     chmod o-rwx /app -R &>>${log_file}
-    echo $?
+    status_check
 
     echo -e "${hs} Start User service ${he}" | tee -a ${log_file}
     systemctl daemon-reload &>>${log_file}
     systemctl enable ${component_name} &>>${log_file}
     systemctl start ${component_name} &>>${log_file}
-    echo $?
+    status_check
 }
 
 golang_app() {
     app_prereq
     dnf install -y golang git &>>${log_file}
-    echo $?
+    status_check
 
     echo -e "${hs} Download App Dependencies ${he}" | tee -a ${log_file}
     go mod tidy &>>${log_file}
     CGO_ENABLED=0 go build -o /app/${component_name} . &>>${log_file}
-    echo $?
+    status_check
     systemd_service
 }
 
@@ -64,9 +64,16 @@ nodejs_app() {
     echo -e "${hs} Download and Install Nodejs ${he}" | tee -a ${log_file}
     curl -fsSL https://rpm.nodesource.com/setup_20.x | bash - &>>${log_file}
     dnf install -y nodejs &>>${log_file}
-    echo $?
+    status_check
     echo -e "${hs} Install dependencies for nodejs ${he}" | tee -a ${log_file} 
     npm install --production &>>${log_file}
-    echo $? 
+    status_check 
     systemd_service
+}
+
+status_check() {
+    if [$? -eq 0]; then
+        echo -e "\e[32m SUCCESS \e[0m"
+    else
+        echo -e "\e[31m FAILURE \e[0m"
 }
