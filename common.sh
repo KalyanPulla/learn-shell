@@ -119,7 +119,7 @@ schema_load() {
 
             echo -e "${hs} Load Schema, App user, Master Data ${he}" | tee -a ${log_file}
             for file in $schema_files; do
-                mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/${file} &>>${log_file}
+                mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/$file &>>${log_file}
             done
             status_check
         fi
