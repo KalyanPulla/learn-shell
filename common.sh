@@ -30,12 +30,13 @@ app_prereq() {
 }
 
 systemd_service() {
+    schema_load
     echo -e "${hs} Grant Permissions and Privileges ${he}" | tee -a ${log_file}
     chown -R appuser:appuser /app &>>${log_file}
     chmod o-rwx /app -R &>>${log_file}
     status_check
 
-    echo -e "${hs} Start User service ${he}" | tee -a ${log_file}
+    echo -e "${hs} Start service ${he}" | tee -a ${log_file}
     systemctl daemon-reload &>>${log_file}
     systemctl enable ${component_name} &>>${log_file}
     systemctl start ${component_name} &>>${log_file}
