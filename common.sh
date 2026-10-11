@@ -10,6 +10,7 @@ app_prereq() {
     echo -e "${hs} Remove Existing files when rerun ${he}" | tee -a ${log_file}
     rm -rf /app &>>${log_file}
     rm -rf /tmp/${component_name}.zip &>>${log_file}
+    status_check
 
     echo -e "${hs} Create Application User ${he}" | tee -a ${log_file}
     useradd -r -s /bin/false appuser &>>${log_file}
