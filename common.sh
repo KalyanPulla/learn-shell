@@ -3,6 +3,8 @@ hs="\e[32m >>>>>>>>>>"
 he="<<<<<<<<<< \e[0m"
 
 app_prereq() {
+
+
     echo -e "${hs} Copy Service to systemd ${he}" | tee -a ${log_file}
     cp -r ${component_name}.service /etc/systemd/system/${component_name}.service &>>${log_file}
     status_check
@@ -13,7 +15,10 @@ app_prereq() {
     status_check
 
     echo -e "${hs} Create Application User ${he}" | tee -a ${log_file}
-    useradd -r -s /bin/false appuser &>>${log_file}
+    id appuser &>>${log_file}
+    if [ $? -eq 1 ]; then
+        useradd -r -s /bin/false appuser &>>${log_file}
+    fi
     status_check
 
     echo -e "${hs} Download App code ${he}" | tee -a ${log_file}
