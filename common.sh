@@ -31,7 +31,7 @@ app_prereq() {
 
 systemd_service() {
     echo -e "${hs} Grant Permissions and Privileges ${he}" | tee -a ${log_file}
-    chown -R app${component_name}:app${component_name} /app &>>${log_file}
+    chown -R appuser:appuser /app &>>${log_file}
     chmod o-rwx /app -R &>>${log_file}
     status_check
 
