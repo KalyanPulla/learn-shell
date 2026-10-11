@@ -4,5 +4,5 @@ echo Log file output: ${log_file}
 
 schema_load=true
 schema_type=mysql
-schema_files="schema.sql appuser-sql master-data.sql"
+schema_files="schema.sql app-user.sql master-data.sql"
 golang_app
