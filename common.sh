@@ -48,6 +48,7 @@ systemd_service() {
 
 golang_app() {
     app_prereq
+    echo -e "${hs} Install Golang ${he}" | tee -a ${log_file}
     dnf install -y golang git &>>${log_file}
     status_check
 
