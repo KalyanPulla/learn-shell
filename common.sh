@@ -121,7 +121,7 @@ schema_load() {
             for file in $schema_files; do
                 if [ "$file" = "master-data.sql" ]; then
                     mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 ${component_name} < db/$file &>>${log_file}
-                else:
+                else
                     mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/$file &>>${log_file}
                 fi
             done
