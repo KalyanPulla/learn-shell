@@ -119,7 +119,7 @@ schema_load() {
 
             echo -e "${hs} Load Schema, App user, Master Data ${he}" | tee -a ${log_file}
             for file in $schema_files; do
-                if [ $file = "master-data.sql"]; then
+                if [ "$file" = "master-data.sql" ]; then
                     mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 ${component_name} < db/$file &>>${log_file}
                 else:
                     mysql -h mysql-dev.kaldevops14.online -u root -pRoboShop@1 < db/$file &>>${log_file}
