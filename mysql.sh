@@ -11,7 +11,7 @@ systemctl start mysqld &>>${log_file}
 status_check
 
 echo -e "${hs} Create MYSQL root user and Grant privileges ${he}" | tee -a ${log_file}
-mysql -u root -pRoboShop@1 -e "
+mysql -u root -e "
   CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'RoboShop@1';
   GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
   ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1';
