@@ -113,8 +113,8 @@ python_app() {
 schema_load() {
     if [ "$schema_load" = "true" ]; then
         if [ "$schema_type" = "mysql" ]; then            
-            echo -e "${hs} Install Golang and mysql client ${he}" | tee -a ${log_file}
-            dnf install mysql8.4 &>>${log_file}
+            echo -e "${hs} Install mysql client ${he}" | tee -a ${log_file}
+            dnf install mysql8.4 -y &>>${log_file}
             status_check
 
             echo -e "${hs} Load Schema, App user, Master Data ${he}" | tee -a ${log_file}
