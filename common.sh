@@ -104,7 +104,7 @@ python_app() {
     status_check
 
     echo -e "${hs} Install requirements ${he}" | tee -a ${log_file}
-    pip3 install -r requirements.txt &>>${log_file}
+    pip3 install -r requirements.txt ${extra_pip_packages} &>>${log_file}
     status_check
 
     systemd_service
