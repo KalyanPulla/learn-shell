@@ -3,7 +3,12 @@ hs="\e[32m >>>>>>>>>>"
 he="<<<<<<<<<< \e[0m"
 
 app_prereq() {
-
+    echo -e "${hs} Create Application User ${he}" | tee -a ${log_file}
+    id appuser &>>${log_file}
+    if [ $? -eq 1 ]; then
+        useradd -r -s /bin/false appuser &>>${log_file}
+    fi
+    status_check
 
     echo -e "${hs} Copy Service to systemd ${he}" | tee -a ${log_file}
     cp -r ${component_name}.service /etc/systemd/system/${component_name}.service &>>${log_file}
@@ -12,13 +17,6 @@ app_prereq() {
     echo -e "${hs} Remove Existing files when rerun ${he}" | tee -a ${log_file}
     rm -rf /app &>>${log_file}
     rm -rf /tmp/${component_name}.zip &>>${log_file}
-    status_check
-
-    echo -e "${hs} Create Application User ${he}" | tee -a ${log_file}
-    id appuser &>>${log_file}
-    if [ $? -eq 1 ]; then
-        useradd -r -s /bin/false appuser &>>${log_file}
-    fi
     status_check
 
     echo -e "${hs} Download App code ${he}" | tee -a ${log_file}
@@ -113,7 +111,7 @@ python_app() {
 
 schema_load() {
     if ["$schema_load" = "true"]; then
-        if ["$schema_type" = "true"]; then            
+        if ["$schema_type" = "mysql"]; then            
             echo -e "${hs} Install Golang and mysql client ${he}" | tee -a ${log_file}
             dnf install mysql8.4 &>>${log_file}
             status_check
